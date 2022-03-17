@@ -116,7 +116,7 @@ else{
 if(event.srcElement.className.split(" ")[4] === "Open"){
   // console.log("open network");
   feedback("Connecting");
-  eel.connect_ssid(event.srcElement.className.split(" ")[2],0)(conres);
+  // eel.connect_ssid(event.srcElement.className.split(" ")[2],0)(conres);
 }
 else{
 
@@ -142,9 +142,9 @@ function conres(v){
   else{
     feedback("PLEASE REFRESH");
   }
-  eel.wifi_state()(calling);
+  // eel.wifi_state()(calling);
 manageContent("WI-FI");
-eel.list_available_wifi()(wifiDevices);
+// eel.list_available_wifi()(wifiDevices);
 }
 function connectssid(){
   document.querySelector(".wrapper").style.display="flex";
@@ -152,7 +152,7 @@ function connectssid(){
   let ssid = document.getElementById("user").value;
   let pass = document.getElementById("pass").value;
   // console.log(ssid,pass);
-  eel.connect_ssid(ssid,pass)(conres);
+  // eel.connect_ssid(ssid,pass)(conres);
   document.getElementById("user").value = '';
   document.getElementById("pass").value = '';
   document.getElementById("user").innerHTML = '';
@@ -178,8 +178,8 @@ function calling(value){
   }
   else if(value.split(',')[1] === "unavailable" ){
       document.querySelector(".status.wifi .status__header").style.display = "none";
-    eel.autoconnect('wlan0')(dummy);
-    eel.wifi_state()(calling);
+    // eel.autoconnect('wlan0')(dummy);
+    // eel.wifi_state()(calling);
     document.getElementById("winame").innerHTML = "NO Wi-Fi NETWORK AVAILABLE";
   }
   else if(value.split(',')[1] === "connecting" ){
@@ -194,7 +194,7 @@ function calling(value){
   document.getElementById("wistat").innerHTML = ` ${wifiConfig[1].toUpperCase()}`;
   document.getElementById("winame").innerHTML = ` ${wifiConfig[2]}`;
   // console.log(wifiConfig[2]);
-  eel.wifi_state()(calling);
+  // eel.wifi_state()(calling);
   }
   else{
     feedback("CONNECTED");
@@ -215,8 +215,8 @@ function autoconnect(){
   document.querySelector(".status__header").style.display = "none";
   document.querySelector(".lfoader").style.display = "block";
   // console.log("autoconnect");
-  eel.autoconnect('wlan0')(dummy);
-  eel.wifi_state()(calling);
+  // eel.autoconnect('wlan0')(dummy);
+  // eel.wifi_state()(calling);
   document.querySelector(".lfoader").style.display = "none";
 
 }
@@ -227,27 +227,27 @@ function dish (va){
   else if(va === 2){
     feedback('DISCONNECTED SUCCESSFULLY');
     document.querySelector(".btn").style.display = "none";
-    eel.wifi_state()(calling);
+    // eel.wifi_state()(calling);
   }
   else {
     feedback('PLEASE REFRESH');
     document.querySelector(".btn").style.display = "none";
-    eel.wifi_state()(calling);
+    // eel.wifi_state()(calling);
   }
 }
 function disconnect(){
   document.querySelector(".status__header").style.display = "none";
   document.querySelector(".loader").style.display = "block";
-  eel.disconnect('wlan0')(dish);
-    eel.wifi_state()(calling);
+  // eel.disconnect('wlan0')(dish);
+    // eel.wifi_state()(calling);
 }
 function wufu(vi){
-  eel.wifi_status()(wifistatuscall);
-  eel.wifi_state()(calling);
+  // eel.wifi_status()(wifistatuscall);
+  // eel.wifi_state()(calling);
 
 }
 function wifion(){
-  eel.wifi_on()(wufu);
+  // eel.wifi_on()(wufu);
   manageContent("WI-FI");
   document.querySelector(".status__header").style.display = "block";
 }
@@ -272,7 +272,7 @@ function wifistatuscall(value){
     document.getElementById("wifiConnect").style.display="none";
     document.querySelector(".status__header").style.display = "none";
     document.querySelector(".lfoader").style.display = "block";
-    eel.list_available_wifi()(wifiDevices);
+    // eel.list_available_wifi()(wifiDevices);
     feedback("CONNECTED");
 
 
@@ -283,11 +283,11 @@ function wifistatuscall(value){
     feedback("CONNECTED");
     document.querySelector(".status__header").style.display = "none";
     document.querySelector(".lfoader").style.display = "block";
-    eel.list_available_wifi()(wifiDevices);
+    // eel.list_available_wifi()(wifiDevices);
   }
 }
-eel.ethernet_state()(callback);
-eel.wifi_state()(calling);
+// eel.ethernet_state()(callback);
+// eel.wifi_state()(calling);
 const menu = ["WI-FI", "ETHERNET"];
 
 function feedback(text) {
@@ -301,7 +301,7 @@ function feedback(text) {
 const manageContent = (option) => {
   // console.log("CLicked");
   if(option === "WI-FI") {
-    eel.wifi_state()(calling);
+    // eel.wifi_state()(calling);
     document.querySelector(".status.ethernet").style.display = "none";
     document.querySelector(".status.wifi").style.display = "flex";
     document.querySelector(".fus").style.borderRadius ="10px 10px 0px 0px";
@@ -314,7 +314,7 @@ const manageContent = (option) => {
     document.getElementById('ethernetButton').style.letterSpacing = "3";
 }
 else {
-  eel.ethernet_state()(callback);
+  // eel.ethernet_state()(callback);
   document.querySelector(".status.ethernet").style.display = "flex";
   document.querySelector(".status.wifi").style.display = "none";
   document.querySelector(".hus").style.borderRadius ="10px 10px 0px 0px";
@@ -327,32 +327,31 @@ else {
   document.getElementById('ethernetButton').style.letterSpacing = "5";
 }
 }
-document.getElementById("wifiButton").addEventListener("click", function() {
-  document.querySelector(".lstatus__header").style.display = "none";
-  document.querySelector(".status__header").style.display = "none";
-  document.querySelector(".loader").style.display = "block";
-  let devicesList = document.getElementById("devices");
-  if (devicesList) {
-   while (devicesList.firstChild) {
-     devicesList.removeChild(devicesList.firstChild);
-   }
- }
+// document.getElementById("wifiButton").addEventListener("click", function() {
+//   document.querySelector(".lstatus__header").style.display = "none";
+//   document.querySelector(".status__header").style.display = "none";
+//   document.querySelector(".loader").style.display = "block";
+//   let devicesList = document.getElementById("devices");
+//   if (devicesList) {
+//    while (devicesList.firstChild) {
+//      devicesList.removeChild(devicesList.firstChild);
+//    }
+//  }
+//   // eel.wifi_status()(wifistatuscall);
+// });
+// document.getElementById("wifiConnect").addEventListener("click",function(){
+//   wifion();
+// });
+// document.getElementById("ethernetButton").addEventListener("click", function() {
+//   document.querySelector(".status__header").style.display = "none";
+//   document.querySelector(".loader").style.display = "block";
+//   manageContent("ETHERNET");
+// });
 
-  eel.wifi_status()(wifistatuscall);
-});
-document.getElementById("wifiConnect").addEventListener("click",function(){
-  wifion();
-});
-document.getElementById("ethernetButton").addEventListener("click", function() {
-  document.querySelector(".status__header").style.display = "none";
-  document.querySelector(".loader").style.display = "block";
-  manageContent("ETHERNET");
-});
-
-document.getElementById("refbut").addEventListener("click",function(){
-  // console.log("refresh");
-  window.location.href="home.html";
-});
+// document.getElementById("refbut").addEventListener("click",function(){
+//   // console.log("refresh");
+//   window.location.href="home.html";
+// });
 
 function wind(){
   // console.log("working");
