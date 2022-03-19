@@ -29,23 +29,6 @@ pin1 = board.D18
 pixels = neopixel.NeoPixel(pin1, 150, brightness = 1.0)
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
-@app.route("/scan_wifi")
-def scan_wifi():
-    result = pynmcli.get_data(pynmcli.NetworkManager.Device().wifi().execute())
-    return result
-
-
-# @app.route("/current_wifi")
-# def current_wifi():
-#     response = muterun_js('./currentWifi.js')
-#     if response.exitcode == 0:
-#         print(response.stdout.decode('utf-8'))
-
-#         data =json.loads(response.stdout.decode('utf-8'))
-#         return json.dumps(data)
-#     else:
-#        return "error"
-
 
 @app.route("/connect_wifi", methods=[ 'POST'])
 def connect_wifi():
@@ -240,6 +223,22 @@ def ledon():
     response.headers.add("Access-Control-Allow-Credentials", "true")
     print("Led ON response Sent")
     return response
+
+@app.route("/changeAllLeds", methods=["POST"])
+def leds():
+    content = request.get_json()
+    for led in content:
+        changeLed(led["num"], led["r"], led["g"], led["b"])
+    return "ok"
+    
+def changeLed(num, r, g, b):
+    print ("set color")
+    print (r)
+    print (g)
+    print (b)
+    pixels.fill((r, b, g))
+
+
 
 @app.route("/api/v1/keys/<action>")
 def btnVirtualKey(action):
