@@ -15,6 +15,7 @@ import RPi.GPIO as GPIO
 import board
 import neopixel
 import os
+import subprocess
 # from pynput.keyboard import Controller, Key
 # pkeyboard = Controller()
 
@@ -42,12 +43,20 @@ def scan_wifi():
     result = pynmcli.get_data(pynmcli.NetworkManager.Device().wifi().execute())
     return jsonify(result)
 
-@app.route("/wifi_status")  #testing, to find out currently connected SSID to show in react frontend
-def wifi_status():
-    result = pynmcli.get_data(pynmcli.NetworkManager.General().Device().execute())
-    return jsonify(result)
+@app.route("/checkcon")
+def checkcon():
+    vSSID = subprocess.check_output("nmcli con show Home | grep '802-11-wireless.ssid' | awk '{print $2}'", shell=True, encoding="utf-8").strip()
+    vSTATE = subprocess.check_output("nmcli con show Home | grep 'GENERAL.STATE' | awk '{print $2}'", shell=True, encoding="utf-8").strip()
+    vIP = subprocess.check_output("nmcli con show Home | grep 'IP4.ADDRESS' | awk '{print $2}'", shell=True, encoding="utf-8").strip()
+    print (vSTATE)
+    print (vSSID)
+    print (vIP)
+    if(vSTATE == "activated"):
+        return (vSSID)
+    else:
+        return "Not Connected"
 
-   
+
 
 
 
